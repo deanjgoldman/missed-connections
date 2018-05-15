@@ -30,6 +30,6 @@ def run_scrape():
     subprocess.call([wc_content, links_touch, uncomment_links,
                      comment_content, links_crawl, comment_links,
                      uncomment_content, content_crawl, concat,
-                     wc_content], shell=True
+                     wc_content], shell=True)
 
 sched.start()
