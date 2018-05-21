@@ -9,7 +9,7 @@ today = datetime.datetime.today().strftime('%Y-%m-%d')
 
 class MySpider(scrapy.Spider):
     name = "content"
-    lines = open("../links_" + str(today) + ".txt", "r").readlines()
+    lines = open("links_" + str(today) + ".txt", "r").readlines()
 
     start_urls = [line.split(",,,")[-1].strip() for line in lines]
 
