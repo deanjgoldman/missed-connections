@@ -21,15 +21,15 @@ scrapy crawl content
 # Concat content to master 
 echo craigslist_${DATE}.txt >> craigslist_content.txt
 # Remove duplicates from craigslist_content.txt
-sed -i '' 'g/\v%(^\1\n)@<=(.*)$/d' craigslist_content.txt
+#sed -i '' 'g/\v%(^\1\n)@<=(.*)$/d' craigslist_content.txt
 # Logfile
 wc -l craigslist_content_${DATE}.txt >> logfile.txt
 # Add to github
-git add craigslist_content.txt
-git add logfile.txt
-git commit -m "update ${DATE}"
-git pull origin master
-git push origin master
-git push heroku master
+#git add craigslist_content.txt
+#git add logfile.txt
+#git commit -m "update ${DATE}"
+#git pull origin master
+#git push origin master
+#git push heroku master
 
 
