@@ -849,3 +849,13 @@
 [u'\n        ', u'\nI saw you on the train twice now. i fall in love with you every time. such a handsome guy.    ']
 [u'\n        ', u'\n... and you gave me your number', u'\nand you gave me you number. I lost it. Re-send please. I think I can be of use.', u'\n', u'\nPeter', u'\n', u'\n', u'\n', u'\n', u'\n', u'\n', u'\n', u'\n', u'\n    ']
 [u'\n        ', u"\nBurbank to JFK on Monday night into Tuesday morning 5/7. I was 11D you were 11E and 11F. That was a ton of fun. I wasn't stalking you to taxis but I should have said a proper good bye. You guys are sweet and sexy. Good combo. If you see this hit me up.    "]
+craigslist/craigslist_date +%Y-%m-%d.txt
+craigslist/craigslist_date +%Y-%m-%d.txt
+craigslist/craigslist_2018-05-21.txt
+craigslist_2018-05-21.txt
+craigslist_2018-05-21.txt
+craigslist_2018-05-21.txt
+craigslist_2018-05-21.txt
+craigslist_2018-05-21.txt
+craigslist_2018-05-21.txt
+craigslist_2018-05-21.txt
