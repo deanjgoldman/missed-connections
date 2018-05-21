@@ -18,6 +18,8 @@ sed -i '' '75 s/^/#/' settings.py
 # Comment content pipeline
 sed -i '' '76 s/^#//' settings.py
 # Run content crawl
+echo "Running content crawl"
 scrapy crawl content 
 # Concat content to master 
 echo craigslist_${DATE}.txt >> craigslist_content.txt
+echo "finished"
