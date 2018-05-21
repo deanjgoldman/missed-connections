@@ -72,7 +72,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    #'craigslist.pipelines.CraigslistPipeline': 300,
+#    'craigslist.pipelines.CraigslistPipeline': 300,
     'craigslist.pipelines.CraigslistContentPipeline': 200,
 }
 
