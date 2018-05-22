@@ -10,10 +10,12 @@ import scrapy
 
 class CraigslistItem(scrapy.Item):
     text = scrapy.Field()
-    date = scrapy.Field()
+    post_date = scrapy.Field()
+    scrape_date = scrapy.Field()
     location = scrapy.Field()
     url = scrapy.Field()
 
 
 class CraigslistContent(scrapy.Item):
+    scrape_date = scrapy.Field()
     body = scrapy.Field()
