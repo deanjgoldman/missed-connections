@@ -2,7 +2,7 @@
 from flask import Flask, request
 from twilio.twiml.messaging_response import Message, MessagingResponse
 import random
-from content import MissedConnections
+from queries import MissedConnections
 
 app = Flask(__name__)
 
@@ -11,7 +11,7 @@ def get_content(msg):
     print(msg)
     msg_tokens = msg.lower().split(" ")
     missed_connections = MissedConnections()
-    content = missed_connections.content()
+    content = missed_connections.content
     matches = []
     for line in content:
         if any(phrase in line.lower() for phrase in msg_tokens):

@@ -72,10 +72,10 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-#    'craigslist.pipelines.CraigslistPipeline': 300,
-    'craigslist.pipelines.CraigslistContentPipeline': 200,
+#    'craigslist.pipelines.CraigslistPipeline': 100,
+     'craigslist.pipelines.CraigslistContentPipeline': 200,
 }
-
+   
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
