@@ -2,26 +2,29 @@
 # Get post content
 # -----------------
 import scrapy
-import sqlite3
 import re
 import os
 import datetime
 from scrapy_splash import SplashRequest
 from craigslist.items import CraigslistContent
+from craigslist.psql import conn
 
 today = datetime.datetime.today().strftime('%Y-%m-%d')
-db_path = os.path.join(os.path.expanduser("~"), "craigslist/craigslist/app.db")
 
 class MySpider(scrapy.Spider):
     name = "content"
     #lines = open("links_" + str(today) + ".txt", "r").readlines()
     #start_urls = [line.split(",,,")[-1].strip() for line in sql_query]
-    db = sqlite3.connect(db_path)
+    db = conn
+    print(db)
     cursor = db.cursor()
-    sql_query = cursor.execute("SELECT url FROM links;")
-    start_urls = [line[0] for line in sql_query]
-    print(start_urls)
-    db.close()
+    cursor.execute("SELECT url FROM links;")
+    try:
+        start_urls = [line[0] for line in cursor.fetchall()]
+    except TypeError: # links is empty
+        print("------  Bad query   --------")
+        pass
+    #db.close()
     
     def start_requests(self):
         for url in self.start_urls:
