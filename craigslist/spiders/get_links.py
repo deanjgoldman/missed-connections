@@ -1,9 +1,13 @@
+# ----------
 # Get links
+# ----------
+import datetime
 import scrapy
 from scrapy_splash import SplashRequest
 from craigslist.items import CraigslistItem
-import csv
 
+
+today = datetime.datetime.today().strftime('%Y-%m-%d')
 
 class MySpider(scrapy.Spider):
     name = "links"
@@ -20,23 +24,30 @@ class MySpider(scrapy.Spider):
 
     def parse(self, response):
         item = CraigslistItem()
-        with open("links.csv", 'a') as myfile:
-            for i in range(1, 121):
+        for i in range(1, 121):
+            try:
+                # dict insertion order matters
+                # --------------------------------------------------------------
+                # scrape date
+                item["scrape_date"] = today
+                # post date
+                i = str(i)
+                date = '//*[@id="sortable-results"]/ul/li[' + i + ']/p/time/text()'
+                item['post_date'] = str(response.xpath(date).extract()[0])
+                # text
+                text = '//*[@id="sortable-results"]/ul/li[' + i + ']/p/a/text()'
+                item["text"] = str(response.xpath(text).extract()[0])
+                # url
+                new_url = str(response.xpath('//*[@id="sortable-results"]/ul/li[' + i + ']/p/a/@href').extract()[0])
+                item["url"] = new_url
+                # location
+                location = '//*[@id="sortable-results"]/ul/li[' + i + ']/p/span[3]/span[1]/text()'
                 try:
-                    i = str(i)
-                    text = '//*[@id="sortable-results"]/ul/li[' + i + ']/p/a/text()'
-                    item["text"] = str(response.xpath(text).extract()[0])
-                    date = '//*[@id="sortable-results"]/ul/li[' + i + ']/p/time/text()'
-                    item['date'] = str(response.xpath(date).extract()[0])
-                    location = '//*[@id="sortable-results"]/ul/li[' + i + ']/p/span[3]/span[1]/text()'
-                    try:
-                        item['location'] = str(response.xpath(location).extract()[0])
-                    except:
-                        item["location"] = "NA"
-                    new_url = str(response.xpath('//*[@id="sortable-results"]/ul/li[' + i + ']/p/a/@href').extract()[0])
-                    item["url"] = new_url
-                    w = csv.DictWriter(myfile, item.keys(), delimiter="\t")
-                    w.writerow(item)
-                    yield item
-                except IndexError:
-                    break
+                    item['location'] = str(response.xpath(location).extract()[0])
+                except:
+                    item["location"] = "NA"
+                # --------------------------------------------------------------
+                yield item
+
+            except IndexError:
+                break
