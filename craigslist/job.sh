@@ -14,7 +14,6 @@ sed -i '' '76 s/^#//' settings.py
 scrapy crawl content 
 
 # Add to github
-#git add craigslist_content.txt
 #git add logfile.txt
 #git commit -m "update ${DATE}"
 #git pull origin master
