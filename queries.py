@@ -1,7 +1,6 @@
 import re
 import os
 import psycopg2
-from ast import literal_eval
 from craigslist.psql import conn
 
 class MissedConnections():
