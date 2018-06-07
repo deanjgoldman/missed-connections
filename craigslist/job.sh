@@ -3,11 +3,10 @@
 # jobs for MissedConnections
 # ------------------------------
 
-# Enter environment
-cd /Users/deangoldman/craigslist/craigslist
-source env/bin/activate
 # set up environment variables:
 # export LOCAL_DATABASE_URL="<LOCAL DATABASE>"
+# export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 bash setup.sh
 
 # Uncomment links pipeline 
