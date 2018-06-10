@@ -9,16 +9,18 @@ from scrapy_splash import SplashRequest
 from craigslist.items import CraigslistContent
 from craigslist.psql import conn
 
+# Include Postgres connection settings here
+#USER = os.environ.get("USER")
+#DATABASE_URL = os.environ.get("DATABASE_URL")
+
 today = datetime.datetime.today().strftime('%Y-%m-%d')
 
 class MySpider(scrapy.Spider):
     name = "content"
     #lines = open("links_" + str(today) + ".txt", "r").readlines()
     #start_urls = [line.split(",,,")[-1].strip() for line in sql_query]
-    db = conn
-    print(db)
-    cursor = db.cursor()
-    cursor.execute("SELECT url FROM links;")
+    cursor = conn.cursor()
+    cursor.execute("SELECT url FROM links WHERE scrape_date = '{today}';".format(today=today))
     try:
         start_urls = [line[0] for line in cursor.fetchall()]
     except TypeError: # links is empty
