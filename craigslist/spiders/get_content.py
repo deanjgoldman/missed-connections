@@ -7,18 +7,16 @@ import os
 import datetime
 from scrapy_splash import SplashRequest
 from craigslist.items import CraigslistContent
-from craigslist.psql import conn
+import psycopg2
 
 # Include Postgres connection settings here
-#USER = os.environ.get("USER")
-#DATABASE_URL = os.environ.get("DATABASE_URL")
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
 today = datetime.datetime.today().strftime('%Y-%m-%d')
 
 class MySpider(scrapy.Spider):
     name = "content"
-    #lines = open("links_" + str(today) + ".txt", "r").readlines()
-    #start_urls = [line.split(",,,")[-1].strip() for line in sql_query]
+    conn = psycopg2.connect(dbname=DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute("SELECT url FROM links WHERE scrape_date = '{today}';".format(today=today))
     try:
@@ -26,7 +24,6 @@ class MySpider(scrapy.Spider):
     except TypeError: # links is empty
         print("------  Bad query   --------")
         pass
-    #db.close()
     
     def start_requests(self):
         for url in self.start_urls:
