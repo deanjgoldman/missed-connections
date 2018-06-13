@@ -8,7 +8,6 @@ app = Flask(__name__)
 
 
 def get_content(msg):
-    print(msg)
     msg_tokens = msg.lower().split(" ")
     missed_connections = MissedConnections()
     content = missed_connections.content
@@ -30,7 +29,6 @@ def sms_reply():
     resp = MessagingResponse()
     text = get_content(request.form["Body"])
     resp.message(text, method='POST')
-    print(resp)
     return str(resp)
 
 
