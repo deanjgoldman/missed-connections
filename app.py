@@ -8,17 +8,19 @@ app = Flask(__name__)
 
 
 def get_content(msg):
-    print(msg)
+    # Get content by splitting words into tokens. Iterate through content (post by post),
+    # If there is a match, append the post to matches and select from matches, otherwise
+    # select randomly from body of posts.
     msg_tokens = msg.lower().split(" ")
-    missed_connections = MissedConnections()
-    content = missed_connections.content
+    mc = MissedConnections()
+    content = mc.content
     matches = []
-    for line in content:
-        if any(phrase in line.lower() for phrase in msg_tokens):
-            matches.append(line)
+    for post in content:
+        if any(phrase in post.lower() for phrase in msg_tokens):
+            matches.append(post)
         else:
             pass
-    if len(matches) > 1:
+    if len(matches) > 0:
         text = random.choice(matches)
     else: 
         text = random.choice(content)
@@ -30,7 +32,6 @@ def sms_reply():
     resp = MessagingResponse()
     text = get_content(request.form["Body"])
     resp.message(text, method='POST')
-    print(resp)
     return str(resp)
 
 
