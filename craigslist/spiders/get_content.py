@@ -10,7 +10,7 @@ from craigslist.items import CraigslistContent
 import psycopg2
 
 # Include Postgres connection settings here
-DATABASE_URL = os.environ.get("DATABASE_URL")
+DATABASE_URL = os.environ.get("LOCAL_DATABASE_URL")
 
 today = datetime.datetime.today().strftime('%Y-%m-%d')
 
@@ -24,7 +24,7 @@ class MySpider(scrapy.Spider):
     except TypeError: # links is empty
         print("------  Bad query   --------")
         pass
-    
+
     def start_requests(self):
         for url in self.start_urls:
             print(url)
@@ -35,7 +35,7 @@ class MySpider(scrapy.Spider):
     def parse(self, response):
 
         content = CraigslistContent()
-        # --------------------------------------------------- 
+        # ---------------------------------------------------
         # dict insertion order matters
 
         # scrape date
@@ -50,6 +50,6 @@ class MySpider(scrapy.Spider):
             print(content["body"])
         except:
             content["body"] = "NA"
-        # --------------------------------------------------- 
+        # ---------------------------------------------------
 
         yield content

@@ -2,8 +2,8 @@
 import datetime
 import psycopg2
 import os
-from psql import conn
 
+DATABASE_URL = os.environ.get("LOCAL_DATABASE_URL")
 today = datetime.datetime.today().strftime('%Y-%m-%d')
 
 class CraigslistPipeline(object):
@@ -12,10 +12,10 @@ class CraigslistPipeline(object):
         self.columns = {"scrape_date":"TEXT", "post_date":"TEXT", "text":"TEXT", "url":"TEXT", "location":"TEXT"}
 
     def open_spider(self, spider):
-        self.db = conn
+        self.db = psycopg2.connect(dbname=DATABASE_URL)
         create = "CREATE TABLE IF NOT EXISTS {}({});".format(self.table, ", ".join((" ".join(row) for row in self.columns.items())))
         self.db.cursor().execute(create)
-    
+
     def close_spider(self, spider):
         self.db.commit()
         self.db.close()
@@ -38,7 +38,7 @@ class CraigslistContentPipeline(object):
         self.columns = {"scrape_date":"TEXT", "body":"TEXT"}
 
     def open_spider(self, spider):
-        self.db = conn
+        self.db = psycopg2.connect(dbname=DATABASE_URL)
         create = "CREATE TABLE IF NOT EXISTS {}({});".format(self.table, ", ".join((" ".join(row) for row in self.columns.items())))
         self.db.cursor().execute(create)
 
@@ -55,5 +55,3 @@ class CraigslistContentPipeline(object):
             self.db.cursor().execute("ROLLBACK");
             pass
         return item
-
-
